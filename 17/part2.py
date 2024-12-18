@@ -3,7 +3,7 @@ with open("input.txt") as file:
 
 registers, program = data.split("\n\n")
 registers = registers.splitlines()
-registerA, registerB, registerC = [int(register.split(': ')[1]) for register in registers]
+registerAOld, registerB, registerC = [int(register.split(': ')[1]) for register in registers]
 
 program = program.split(': ')[1]
 program = [int(num) for num in program.split(',')]
@@ -53,24 +53,33 @@ def run_command(command, operand, register_a, register_b, register_c, instructio
     return newRegisterA, newRegisterB, newRegisterC, instructions_pointer, output
 
 
-instructions_pointer = 0
-output = []
+# for registerA in range(35200000000000, 255200000000000):
+for registerA in range(39000000000000, 281400000000000):
+    print(registerA)
+    regA = registerA
+    instructions_pointer = 0
+    output = []
+    while instructions_pointer < len(program):
+        command = program[instructions_pointer]
+        operand = program[instructions_pointer + 1]
+        registerA, registerB, registerC, instructions_pointer, output = run_command(
+            command,
+            operand,
+            registerA,
+            registerB,
+            registerC,
+            instructions_pointer,
+            output
+        )
+    output_str = ','.join([str(num) for num in output])
+    if output_str not in '2,4,1,3,7,5,1,5,0,3,4,2,5,5,3,0':
+        continue
 
-i = 0
-while instructions_pointer < len(program):
-    print(i)
-    command = program[instructions_pointer]
-    operand = program[instructions_pointer + 1]
-    registerA, registerB, registerC, instructions_pointer, output = run_command(
-        command,
-        operand,
-        registerA,
-        registerB,
-        registerC,
-        instructions_pointer,
-        output
-    )
-    i += 1
+    if output_str == '2,4,1,3,7,5,1,5,0,3,4,2,5,5,3,0':
+        print('fuck yeah', regA, 'output ', output)
+        with open('output.txt', 'w') as file:
+            file.write(str(regA))
+        break
 
 print(','.join([str(num) for num in output]))
-print(registerA, registerB, registerC)
+print(len(output))

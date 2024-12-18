@@ -73,4 +73,4 @@ while instructions_pointer < len(program):
     i += 1
 
 print(','.join([str(num) for num in output]))
-print(registerA, registerB, registerC)
+print(len(output))

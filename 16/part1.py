@@ -96,3 +96,4 @@ while any([not path.is_terminated for path in paths]):
 
 
 print(lowest_score)
+print(min([len(path.path) for path in paths if path.is_finish]))
