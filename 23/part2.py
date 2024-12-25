@@ -32,7 +32,7 @@ for group in groups:
         local_groups.append([key] + items)
     for local_group1 in local_groups:
         group_is_valid = True
-        for i in range (1, len(local_group1)):
+        for i in range(1, len(local_group1)):
             local_element = local_group1[i]
             local_group_without_local_element = local_group1[:i] + local_group1[i+1:]
             if not set(local_group_without_local_element).issubset(set(local_relations[local_element])):
